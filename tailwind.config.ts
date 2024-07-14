@@ -52,20 +52,14 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "blue-1": "var(--blue-1)",
-        "blue-2": "var(--blue-2)",
-        "blue-3": "var(--blue-3)",
-        "blue-4": "var(--blue-4)",
-        "blue-5": "var(--blue-5)",
-        "gray-1": "var(--gray-1)",
-        "gray-2": "var(--gray-2)",
-        "gray-3": "var(--gray-3)",
-        "gray-4": "var(--gray-4)",
-        // Primary
-        "blue-primary": "var(--blue-2)",
+        // blue
+        "blue-primary": "var(--blue-7)",
+        "blue-secondary": "var(--blue-9)",
+        "blue-light": "var(--blue-2)",
+        "blue-lightest": "var(--blue-1)",
+        "blue-dark": "var(--blue-11)",
+        // gray
         "gray-primary": "var(--gray-4)",
-        // Secondary
-        "blue-secondary": "var(--blue-3)",
       },
       borderRadius: {
         lg: "var(--radius)",

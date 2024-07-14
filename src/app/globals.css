@@ -30,16 +30,28 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-    --blue-1: "#03045E",
-    --blue-2: "#0077B6",
-    --blue-3: "#00B4D8",
-    --blue-4: "#90E0EF",
-    --blue-5: "#CAF0F8",
+    /* --blue-1: #03045e;
+    --blue-2: #0077b6;
+    --blue-3: #00b4d8;
+    --blue-4: #90e0ef;
+    --blue-5: #caf0f8; */
 
-    --gray-1: "#33415C",
-    --gray-2: "#5C677D",
-    --gray-3: "#7D8597",
-    --gray-4: "#979DAC",
+    --blue-1: theme("colors.blue.50");
+    --blue-2: theme("colors.blue.100");
+    --blue-3: theme("colors.blue.200");
+    --blue-4: theme("colors.blue.300");
+    --blue-5: theme("colors.blue.400");
+    --blue-6: theme("colors.blue.500");
+    --blue-7: theme("colors.blue.600");
+    --blue-8: theme("colors.blue.700");
+    --blue-9: theme("colors.blue.800");
+    --blue-10: theme("colors.blue.900");
+    --blue-11: theme("colors.blue.950");
+
+    --gray-1: #33415c;
+    --gray-2: #5c677d;
+    --gray-3: #7d8597;
+    --gray-4: #979dac;
   }
 
   .dark {
