@@ -25,10 +25,7 @@ export const {
     },
     async signIn({ user }) {
       // if (user && user.email) {
-      //   const existingUser = await getUserByEmail(user.email);
-
-      //   // prevent sign in without email verification
-      //   if (!existingUser?.isUserVerified) return false;
+      //   await getUserByEmail(user.email);
       // }
       return true;
     },

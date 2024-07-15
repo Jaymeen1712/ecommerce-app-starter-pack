@@ -3,7 +3,7 @@
  * @type {string[]}
  */
 
-export const publicRoutes = ["/verification", "/api/graphql"];
+export const publicRoutes = ["/home"];
 
 /**
  * Routes that starts with this prefix are used for API authentication purposes.
@@ -18,7 +18,7 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string[]}
  */
 
-export const authRoutes = ["/sign-up", "/login"];
+export const authRoutes = ["/signup", "/login"];
 
 /**
  * User will redirect to this default path if logged in.
