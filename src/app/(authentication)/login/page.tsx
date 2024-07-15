@@ -1,5 +1,5 @@
 "use client";
-import { signUpAction } from "@/actions";
+import { loginAction } from "@/actions/authentication";
 import { AuthContainer, CustomButton, CustomErrorAlert } from "@/components";
 import {
   Form,
@@ -10,89 +10,52 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { SignUpFormSchema } from "@/schemas";
+import { LoginFormSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const SignUpPage = () => {
+const LoginPage = () => {
   const [error, setError] = useState<string | undefined>();
-  const [isRegisterButtonLoading, setIsRegisterButtonLoading] = useState(false);
+  const [isLoginButtonLoading, setIsLoginButtonLoading] = useState(false);
 
   const router = useRouter();
 
-  const { toast } = useToast();
-
   const form = useForm({
-    resolver: zodResolver(SignUpFormSchema),
+    resolver: zodResolver(LoginFormSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
       email: "",
       password: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof SignUpFormSchema>) {
-    setIsRegisterButtonLoading(true);
+  async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
+    setIsLoginButtonLoading(true);
     try {
-      const response = await signUpAction(values);
+      const response = await loginAction(values);
 
       if (response?.error) {
         setError(response?.error);
-      } else {
-        toast({
-          title: "User is successfully registered.",
-        });
-        router.push("/login");
       }
     } finally {
-      setIsRegisterButtonLoading(false);
+      setIsLoginButtonLoading(false);
     }
   }
 
-  const handleRedirectToLogin = () => {
-    router.push("/login");
+  const handleRedirectToSignUp = () => {
+    router.push("/signup");
   };
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <AuthContainer title="Sign Up">
+      <AuthContainer title="Login">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-80 space-y-8"
           >
-            <FormField
-              control={form.control}
-              name="first_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter first name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="last_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter last name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <FormField
               control={form.control}
               name="email"
@@ -130,20 +93,20 @@ const SignUpPage = () => {
             <CustomButton
               type="submit"
               className="w-full bg-blue-primary hover:bg-blue-secondary"
-              loading={isRegisterButtonLoading}
+              loading={isLoginButtonLoading}
             >
-              Register
+              Login
             </CustomButton>
           </form>
         </Form>
 
         <div className="mt-4 flex w-full justify-center space-x-2 text-sm">
-          <p>have account? </p>
+          <p>no account, </p>
           <span
             className="cursor-pointer font-semibold text-blue-primary"
-            onClick={handleRedirectToLogin}
+            onClick={handleRedirectToSignUp}
           >
-            Login
+            Sign up
           </span>
         </div>
       </AuthContainer>
@@ -151,4 +114,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;

@@ -1,3 +1,4 @@
+import { loginAction } from "./login";
 import { signUpAction } from "./signup";
 
-export { signUpAction };
+export { loginAction, signUpAction };
