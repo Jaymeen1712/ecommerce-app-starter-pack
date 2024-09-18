@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Toaster } from "sonner";
+
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import "./globals.css";
 
 const inter = Montserrat({ subsets: ["latin"] });
