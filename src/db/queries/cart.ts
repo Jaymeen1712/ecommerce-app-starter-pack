@@ -4,6 +4,7 @@ import {
   CreateCartItemRequestObjType,
   CreateCartRequestObjType,
 } from "@/types";
+import { CartItem } from "@prisma/client";
 
 export const createCartByProfileId = async ({
   profileId,
@@ -72,6 +73,66 @@ export const fetchCartByProfileId = async ({
 
     if (existingCart) {
       response = existingCart;
+    }
+  } catch (error) {
+    errors = error;
+  }
+
+  return { errors, response };
+};
+
+export const fetchCartItemsIncludingProductsByCartId = async ({
+  cartId,
+}: {
+  cartId: string;
+}) => {
+  let response;
+  let errors;
+
+  try {
+    const existingCartItems = await db.cartItem.findMany({
+      where: {
+        cartId,
+      },
+      include: {
+        product: true,
+      },
+    });
+
+    if (existingCartItems) {
+      response = existingCartItems;
+    }
+  } catch (error) {
+    errors = error;
+  }
+
+  return { errors, response };
+};
+
+export const updateCartItemById = async ({
+  cartItemId,
+  cartItem,
+}: {
+  cartItemId: string;
+  cartItem: Partial<
+    Omit<CartItem, "id" | "createdAt" | "updatedAt" | "productId" | "cartId">
+  >;
+}) => {
+  let response;
+  let errors;
+
+  try {
+    const updatedCartItem = await db.cartItem.update({
+      where: {
+        id: cartItemId,
+      },
+      data: {
+        ...cartItem,
+      },
+    });
+
+    if (updatedCartItem) {
+      response = updatedCartItem;
     }
   } catch (error) {
     errors = error;

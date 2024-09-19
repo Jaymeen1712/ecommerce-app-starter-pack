@@ -22,7 +22,7 @@ const useSingleProductShowcasePageController = ({
   const [productModifications, setProductModifications] = useState<{
     quantity: number;
   }>({
-    quantity: 0,
+    quantity: 1,
   });
 
   const { profile } = useAppStore();

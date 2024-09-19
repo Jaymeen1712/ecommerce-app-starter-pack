@@ -7,11 +7,13 @@ import { Input } from "../ui/input";
 interface QuantitySelectorProps {
   initialQuantity?: number;
   onQuantityChange?: (quantity: number) => void;
+  isBothButtonDisable?: boolean;
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   initialQuantity = 1,
   onQuantityChange,
+  isBothButtonDisable,
 }) => {
   const [quantity, setQuantity] = useState<number>(initialQuantity);
 
@@ -41,7 +43,10 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
 
   return (
     <div className="flex items-center space-x-2">
-      <Button onClick={decreaseQuantity} disabled={quantity <= 1}>
+      <Button
+        onClick={decreaseQuantity}
+        disabled={quantity <= 1 || isBothButtonDisable}
+      >
         -
       </Button>
       <Input
@@ -50,7 +55,9 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         onChange={handleChange}
         className="w-16 text-center"
       />
-      <Button onClick={increaseQuantity}>+</Button>
+      <Button onClick={increaseQuantity} disabled={isBothButtonDisable}>
+        +
+      </Button>
     </div>
   );
 };
