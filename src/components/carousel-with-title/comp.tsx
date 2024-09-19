@@ -1,13 +1,13 @@
 "use client";
+import { Product } from "@prisma/client";
 import React from "react";
 import Slider from "react-slick";
 import CarouselSingleContainer from "../carousel-single-container";
-
 import "./comp.css";
 
 interface CarouselWithTitleProps {
   title: string | React.ReactNode;
-  items: any;
+  products: Product[];
 }
 
 var settings = {
@@ -46,7 +46,7 @@ var settings = {
 };
 
 const CarouselWithTitle: React.FC<CarouselWithTitleProps> = ({
-  items,
+  products,
   title,
 }) => {
   return (
@@ -55,8 +55,8 @@ const CarouselWithTitle: React.FC<CarouselWithTitleProps> = ({
 
       <div className="slider-container">
         <Slider {...settings}>
-          {Array.from({ length: 8 }).map((_, index) => (
-            <CarouselSingleContainer key={index} />
+          {products.map((product, index) => (
+            <CarouselSingleContainer key={index} product={product} />
           ))}
         </Slider>
       </div>

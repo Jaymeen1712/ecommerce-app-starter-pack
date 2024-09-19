@@ -4,8 +4,21 @@ import bcrypt from "bcryptjs";
 import * as z from "zod";
 
 import { db } from "@/db";
+import { createCartByProfileId } from "@/db/queries";
 import { getUserByEmail } from "@/db/queries/user";
 import { SignUpFormSchema } from "@/schemas";
+
+const handleDeleteUser = async (id: string) => {
+  await db.user.delete({
+    where: {
+      id,
+    },
+  });
+
+  return {
+    error: "Failed to create user",
+  };
+};
 
 export const signUpAction = async (
   values: z.infer<typeof SignUpFormSchema>,
@@ -50,15 +63,15 @@ export const signUpAction = async (
       });
 
       if (!createdProfile) {
-        await db.user.delete({
-          where: {
-            id: createdUser.id,
-          },
-        });
+        handleDeleteUser(createdUser.id);
+      }
 
-        return {
-          error: "Failed to create user",
-        };
+      const createdCart = await createCartByProfileId({
+        profileId: createdProfile.id,
+      });
+
+      if (!createdCart) {
+        handleDeleteUser(createdUser.id);
       }
     }
   } catch (err: unknown) {
