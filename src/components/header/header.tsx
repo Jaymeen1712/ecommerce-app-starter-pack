@@ -8,11 +8,13 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import { Input } from "../ui/input";
 import useHeaderController from "./header-controller";
 
 const Header = () => {
-  const { scrollY } = useHeaderController();
+  const { scrollY, isUserPopoverOpen, setIsUserPopoverOpen } =
+    useHeaderController();
 
   return (
     <div
@@ -32,7 +34,12 @@ const Header = () => {
           <Input placeholder="Search" className="w-60" />
         </div>
         <div className="px-12">
-          <Popover>
+          <Popover
+            open={isUserPopoverOpen}
+            onOpenChange={(open) => {
+              setIsUserPopoverOpen(open);
+            }}
+          >
             <PopoverTrigger>
               <Avatar>
                 <AvatarImage
@@ -41,18 +48,39 @@ const Header = () => {
                 />
               </Avatar>
             </PopoverTrigger>
-            <PopoverContent className={"mt-2 w-full px-4 py-1"} align="end">
-              {/* <Link
-            href={`/profile`}
-            className="hover:text-primary-color cursor-pointer py-1 leading-relaxed"
-            onClick={() => {
-              setIsUserPopoverOpen(false);
-            }}
-          >
-            Profile
-          </Link> */}
+            <PopoverContent
+              className={"mt-2 flex w-full flex-col space-y-2 px-0 py-1"}
+              align="end"
+            >
+              <Link
+                href={`/profile`}
+                className="cursor-pointer px-4 py-1 leading-relaxed hover:bg-gray-100"
+                onClick={() => {
+                  setIsUserPopoverOpen(false);
+                }}
+              >
+                Profile
+              </Link>
+              <Link
+                href={`/cart`}
+                className="cursor-pointer px-4 py-1 leading-relaxed hover:bg-gray-100"
+                onClick={() => {
+                  setIsUserPopoverOpen(false);
+                }}
+              >
+                Cart
+              </Link>
+              <Link
+                href={`/orders`}
+                className="cursor-pointer px-4 py-1 leading-relaxed hover:bg-gray-100"
+                onClick={() => {
+                  setIsUserPopoverOpen(false);
+                }}
+              >
+                Orders
+              </Link>
               <div
-                className="hover:text-primary-color cursor-pointer py-1 leading-relaxed"
+                className="cursor-pointer px-4 py-1 leading-relaxed hover:bg-gray-100"
                 onClick={() => {
                   signOut({ callbackUrl: "/login" });
                 }}

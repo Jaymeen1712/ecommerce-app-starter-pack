@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const useHeaderController = () => {
   const [scrollY, setScrollY] = useState<number>(0);
+  const [isUserPopoverOpen, setIsUserPopoverOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +16,7 @@ const useHeaderController = () => {
     };
   }, []);
 
-  return { scrollY };
+  return { scrollY, isUserPopoverOpen, setIsUserPopoverOpen };
 };
 
 export default useHeaderController;
