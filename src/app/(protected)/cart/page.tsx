@@ -1,12 +1,17 @@
 "use client";
-import { Spinner } from "@/components";
-import { Button } from "@/components/ui/button";
+import { CustomButton, Spinner } from "@/components";
 import CartShowcaseSingleProductComp from "./_single-product";
 import useCartPageController from "./page-controller";
 
 const CartPage = () => {
-  const { cartItems, isCartItemsLoading, cartSubTotal, handleGetCartItems } =
-    useCartPageController();
+  const {
+    cartItems,
+    isCartItemsLoading,
+    cartSubTotal,
+    handleGetCartItems,
+    handleBuyButtonClick,
+    isBuyButtonLoading,
+  } = useCartPageController();
 
   return (
     <div className="container grid grid-cols-4">
@@ -38,7 +43,13 @@ const CartPage = () => {
         )}
       </div>
       <div className="col-span-1 flex items-center bg-gray-100">
-        <Button className="w-full">Buy</Button>
+        <CustomButton
+          className="w-full"
+          onClick={handleBuyButtonClick}
+          loading={isBuyButtonLoading}
+        >
+          Buy
+        </CustomButton>
       </div>
     </div>
   );

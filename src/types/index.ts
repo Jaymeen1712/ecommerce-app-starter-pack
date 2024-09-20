@@ -13,3 +13,19 @@ export interface CarouselSingleProductType {
 export type CartItemsIncludingProductType = Prisma.CartItemGetPayload<{
   include: { product: true };
 }>;
+
+export type OrderIncludingOrderItemsIncludingProductType = Prisma.OrderGetPayload<{
+  include: {
+    orderItems: {
+      include: {
+        product: true;
+      };
+    };
+  };
+}>;
+
+export type OrderItemIncludingProductType = Prisma.OrderItemGetPayload<{
+  include: {
+    product: true;
+  };
+}>;

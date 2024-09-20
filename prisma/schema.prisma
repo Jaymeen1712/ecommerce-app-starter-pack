@@ -144,29 +144,48 @@ model CartItem {
 }
 
 model Order {
-  id         String      @id @default(uuid())
-  profileId  String
-  orderItems OrderItem[]
-  amount     Float
+  id            String        @id @default(uuid())
+  profileId     String
+  orderItems    OrderItem[]
+  amount        Float
+  paymentStatus PaymentStatus @default(PENDING)
   // payment     Payment                         
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  profile    Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  profile       Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("orders")
 }
 
 model OrderItem {
-  id        String   @id @default(uuid())
+  id        String          @id @default(uuid())
   productId String
   quantity  Int
   orderId   String
   price     Float
-  createdAt DateTime @default(now())
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  status    OrderItemStatus @default(PENDING)
+  createdAt DateTime        @default(now())
+  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("orderItems")
+}
+
+enum OrderItemStatus {
+  // SHIPPED
+  DELIVERED
+  CANCELLED
+  RETURNED
+  PENDING
+  FAILED
+  PROCESSING
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
 }
 
 // model Payment {

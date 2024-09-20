@@ -1,6 +1,6 @@
 "use client";
 
-import { QuantitySelector, Spinner } from "@/components";
+import { CustomButton, QuantitySelector, Spinner } from "@/components";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import useSingleProductShowcasePageController from "./page-controller";
@@ -23,6 +23,7 @@ const SingleProductShowcasePage: React.FC<SingleProductShowcasePageProps> = ({
     handleAddToCartButtonClick,
     handleBuyNowButtonClick,
     productModifications,
+    isBuyButtonLoading,
   } = useSingleProductShowcasePageController({
     productId,
   });
@@ -59,7 +60,12 @@ const SingleProductShowcasePage: React.FC<SingleProductShowcasePageProps> = ({
 
           <div className="grid grid-cols-2 gap-4">
             <Button onClick={handleAddToCartButtonClick}>Add to cart</Button>
-            <Button onClick={handleBuyNowButtonClick}>Buy now</Button>
+            <CustomButton
+              onClick={handleBuyNowButtonClick}
+              loading={isBuyButtonLoading}
+            >
+              Buy now
+            </CustomButton>
           </div>
         </div>
       )}

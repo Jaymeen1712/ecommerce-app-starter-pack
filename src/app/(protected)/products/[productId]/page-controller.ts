@@ -1,13 +1,16 @@
 "use client";
 
 import {
+  createOrderByProfileId,
+  createOrderItemsByOrderId,
   createProductInCart,
   fetchCartByProfileId,
   fetchSingleProductById,
 } from "@/db/queries";
 import { useAppStore } from "@/store";
 import { handleAPIResponse, handleShowError, handleShowSuccess } from "@/utils";
-import { Cart, Product } from "@prisma/client";
+import { Cart, Order, Product } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 interface SingleProductShowcasePageControllerProps {
@@ -24,8 +27,11 @@ const useSingleProductShowcasePageController = ({
   }>({
     quantity: 1,
   });
+  const [isBuyButtonLoading, setIsBuyButtonLoading] = useState(false);
 
   const { profile } = useAppStore();
+
+  const router = useRouter();
 
   const handleGetProduct = useCallback(async () => {
     try {
@@ -80,8 +86,44 @@ const useSingleProductShowcasePageController = ({
     }
   };
 
-  const handleBuyNowButtonClick = () => {
-    return;
+  const handleBuyNowButtonClick = async () => {
+    try {
+      setIsBuyButtonLoading(true);
+      if (!profile || !product) {
+        handleShowError(3);
+        return;
+      }
+
+      const { id: profileId } = profile;
+      const { price } = product;
+      const { quantity } = productModifications;
+
+      const { errors, response } = await createOrderByProfileId({
+        profileId,
+        amount: quantity * price,
+      });
+
+      const result = handleAPIResponse(errors, response);
+
+      if (result) {
+        const { id: orderId } = result as Order;
+
+        const { errors } = await createOrderItemsByOrderId({
+          orderId,
+          price,
+          productId,
+          quantity,
+        });
+
+        if (errors) {
+          handleShowError(3);
+        } else {
+          router.push(`/payment/${orderId}`);
+        }
+      }
+    } finally {
+      setIsBuyButtonLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -95,6 +137,7 @@ const useSingleProductShowcasePageController = ({
     handleAddToCartButtonClick,
     handleBuyNowButtonClick,
     productModifications,
+    isBuyButtonLoading,
   };
 };
 

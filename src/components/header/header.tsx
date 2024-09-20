@@ -29,7 +29,9 @@ const Header = () => {
           // scrollY > 10 && "rounded-md",
         )}
       >
-        <div className="px-12">LOGO</div>
+        <Link className="px-12" href={"/"}>
+          LOGO
+        </Link>
         <div className="flex-1 px-12">
           <Input placeholder="Search" className="w-60" />
         </div>

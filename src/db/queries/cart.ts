@@ -140,3 +140,28 @@ export const updateCartItemById = async ({
 
   return { errors, response };
 };
+
+export const deleteAllCartItemsCartId = async ({
+  cartId,
+}: {
+  cartId: string;
+}) => {
+  let response;
+  let errors;
+
+  try {
+    const deletedCartItems = await db.cartItem.deleteMany({
+      where: {
+        cartId,
+      },
+    });
+
+    if (deletedCartItems) {
+      response = deletedCartItems;
+    }
+  } catch (error) {
+    errors = error;
+  }
+
+  return { errors, response };
+};
