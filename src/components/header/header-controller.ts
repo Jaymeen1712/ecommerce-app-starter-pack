@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 const useHeaderController = () => {
@@ -16,7 +18,11 @@ const useHeaderController = () => {
     };
   }, []);
 
-  return { scrollY, isUserPopoverOpen, setIsUserPopoverOpen };
+  return {
+    scrollY,
+    isUserPopoverOpen,
+    setIsUserPopoverOpen,
+  };
 };
 
 export default useHeaderController;

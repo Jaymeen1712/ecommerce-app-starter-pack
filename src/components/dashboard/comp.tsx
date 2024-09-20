@@ -2,10 +2,10 @@
 
 import { CarouselWithTitle } from "@/components";
 import Image from "next/image";
-import useDashboardPageController from "./page-controller";
+import useDashboardController from "./comp-controller";
 
-const DashboardPage = () => {
-  const { products } = useDashboardPageController();
+const DashboardComp = () => {
+  const { products } = useDashboardController();
 
   return (
     <>
@@ -23,4 +23,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default DashboardComp;

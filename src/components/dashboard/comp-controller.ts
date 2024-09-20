@@ -4,7 +4,7 @@ import { handleAPIResponse } from "@/utils";
 import { Product } from "@prisma/client";
 import { useCallback, useEffect, useState } from "react";
 
-const useDashboardPageController = () => {
+const useDashboardController = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const handleGetAllProducts = useCallback(async () => {
@@ -24,4 +24,4 @@ const useDashboardPageController = () => {
   return { products };
 };
 
-export default useDashboardPageController;
+export default useDashboardController;

@@ -9,7 +9,7 @@ import {
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { Input } from "../ui/input";
+import HeaderSearchWithSuggestionBox from "../header-search-with-suggestion-box";
 import useHeaderController from "./header-controller";
 
 const Header = () => {
@@ -33,7 +33,7 @@ const Header = () => {
           LOGO
         </Link>
         <div className="flex-1 px-12">
-          <Input placeholder="Search" className="w-60" />
+          <HeaderSearchWithSuggestionBox />
         </div>
         <div className="px-12">
           <Popover
